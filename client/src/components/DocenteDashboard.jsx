@@ -23,7 +23,7 @@ const DocenteDashboard = ({ user, onLogout }) => {
     if (hasPending && !pollRef.current) {
       pollRef.current = setInterval(async () => {
         try {
-          const res = await axios.get(`http://localhost:3001/api/sessions/${user.dni}`);
+          const res = await axios.get(`https://backend-aip.onrender.com/api/sessions/${user.dni}`);
           setSessions(res.data);
           const stillPending = res.data.some(s => !s.driveViewLink);
           if (!stillPending && pollRef.current) {
@@ -40,7 +40,7 @@ const DocenteDashboard = ({ user, onLogout }) => {
 
   const fetchSessions = async () => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/sessions/${user.dni}`);
+      const res = await axios.get(`https://backend-aip.onrender.com/api/sessions/${user.dni}`);
       setSessions(res.data);
     } catch (err) {
       console.error('Error fetching sessions');
@@ -60,7 +60,7 @@ const DocenteDashboard = ({ user, onLogout }) => {
     setMsg({ type: '', text: '' });
 
     try {
-      await axios.post('http://localhost:3001/api/sessions/upload', formData);
+      await axios.post('https://backend-aip.onrender.com/api/sessions/upload', formData);
       setMsg({ type: 'success', text: 'Sesión compartida con éxito' });
       setFile(null);
       fetchSessions();
@@ -75,7 +75,7 @@ const DocenteDashboard = ({ user, onLogout }) => {
     if (!window.confirm('¿Estás seguro de que deseas eliminar esta sesión? Esta acción también borrará el archivo de Google Drive.')) return;
     
     try {
-      await axios.delete(`http://localhost:3001/api/sessions/${id}`);
+      await axios.delete(`https://backend-aip.onrender.com/api/sessions/${id}`);
       setSessions(sessions.filter(s => s.id !== id));
       setMsg({ type: 'success', text: 'Sesión eliminada de AIP Sesiones y de Google Drive' });
       
@@ -89,7 +89,7 @@ const DocenteDashboard = ({ user, onLogout }) => {
   const handleSync = async () => {
     setSyncStatus('syncing');
     try {
-      const res = await axios.get('http://localhost:3001/api/sync/health');
+      const res = await axios.get('https://backend-aip.onrender.com/api/sync/health');
       if (res.data.ok) {
         setSyncStatus('success');
         fetchSessions();

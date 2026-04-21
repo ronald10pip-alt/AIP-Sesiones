@@ -16,8 +16,8 @@ const DirectivoDashboard = ({ user, onLogout }) => {
   const fetchData = async () => {
     try {
       const [sessRes, docRes] = await Promise.all([
-        axios.get('http://localhost:3001/api/pip/sessions'),
-        axios.get('http://localhost:3001/api/docentes')
+        axios.get('https://backend-aip.onrender.com/api/pip/sessions'),
+        axios.get('https://backend-aip.onrender.com/api/docentes')
       ]);
       setSessions(sessRes.data);
       setDocentes(docRes.data);
@@ -135,7 +135,7 @@ const DirectivoDashboard = ({ user, onLogout }) => {
   const handleSync = async () => {
     setSyncStatus('syncing');
     try {
-      const res = await axios.get('http://localhost:3001/api/sync/health');
+      const res = await axios.get('https://backend-aip.onrender.com/api/sync/health');
       if (res.data.ok) {
         setSyncStatus('success');
         fetchData();

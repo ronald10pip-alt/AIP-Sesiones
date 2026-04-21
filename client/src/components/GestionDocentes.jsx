@@ -17,7 +17,7 @@ const GestionDocentes = ({ docentes, onUpdate }) => {
     
     setLoading(true);
     try {
-      await axios.post('http://localhost:3001/api/docentes/bulk', { 
+      await axios.post('https://backend-aip.onrender.com/api/docentes/bulk', { 
         docentes: [form] 
       });
       setMsg({ type: 'success', text: 'Profesional registrado con éxito' });
@@ -59,7 +59,7 @@ const GestionDocentes = ({ docentes, onUpdate }) => {
 
       setLoading(true);
       try {
-        await axios.post('http://localhost:3001/api/docentes/bulk', { docentes: data });
+        await axios.post('https://backend-aip.onrender.com/api/docentes/bulk', { docentes: data });
         setMsg({ type: 'success', text: `${data.length} registros cargados exitosamente` });
         onUpdate();
         setCsvFile(null);
@@ -76,7 +76,7 @@ const GestionDocentes = ({ docentes, onUpdate }) => {
   const handleDelete = async (id) => {
     if (!window.confirm('¿Seguro que desea retirar este registro?')) return;
     try {
-      await axios.delete(`http://localhost:3001/api/docentes/${id}`);
+      await axios.delete(`https://backend-aip.onrender.com/api/docentes/${id}`);
       onUpdate();
       setMsg({ type: 'success', text: 'Registro retirado con éxito' });
     } catch (err) {
@@ -90,7 +90,7 @@ const GestionDocentes = ({ docentes, onUpdate }) => {
 
     setLoading(true);
     try {
-      await axios.post('http://localhost:3001/api/docentes/delete-bulk', { dnis: selectedIds });
+      await axios.post('https://backend-aip.onrender.com/api/docentes/delete-bulk', { dnis: selectedIds });
       setMsg({ type: 'success', text: 'Eliminación masiva completada con éxito' });
       setSelectedIds([]);
       onUpdate();

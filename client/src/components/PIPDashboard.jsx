@@ -20,8 +20,8 @@ const PIPDashboard = ({ onLogout }) => {
   const fetchData = async () => {
     try {
       const [sessRes, docRes] = await Promise.all([
-        axios.get('http://localhost:3001/api/pip/sessions'),
-        axios.get('http://localhost:3001/api/docentes')
+        axios.get('https://backend-aip.onrender.com/api/pip/sessions'),
+        axios.get('https://backend-aip.onrender.com/api/docentes')
       ]);
       setSessions(sessRes.data);
       setDocentes(docRes.data);
@@ -33,7 +33,7 @@ const PIPDashboard = ({ onLogout }) => {
   const handleUpdateSession = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:3001/api/sessions/${selectedSession.id}`, evalData);
+      await axios.patch(`https://backend-aip.onrender.com/api/sessions/${selectedSession.id}`, evalData);
       setSelectedSession(null);
       fetchData();
     } catch (err) {
@@ -44,7 +44,7 @@ const PIPDashboard = ({ onLogout }) => {
   const handleDeleteSession = async (id) => {
     if (!window.confirm('¿Seguro que desea eliminar esta sesión? Se borrará del aplicativo y de Google Drive.')) return;
     try {
-      await axios.delete(`http://localhost:3001/api/sessions/${id}`);
+      await axios.delete(`https://backend-aip.onrender.com/api/sessions/${id}`);
       setSessions(sessions.filter(s => s.id !== id));
     } catch (err) {
       alert('Error al eliminar la sesión');
@@ -167,7 +167,7 @@ const PIPDashboard = ({ onLogout }) => {
   const handleSync = async () => {
     setSyncStatus('syncing');
     try {
-      const res = await axios.get('http://localhost:3001/api/sync/health');
+      const res = await axios.get('https://backend-aip.onrender.com/api/sync/health');
       if (res.data.ok) {
         setSyncStatus('success');
         fetchData();
